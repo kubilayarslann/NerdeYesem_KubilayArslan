@@ -17,7 +17,8 @@
     <fragment
         android:id="@+id/overviewFragment"
         android:name="com.example.nerdeyesem.overview.OverviewFragment"
-        android:label="OverviewFragment" >
+        android:label="OverviewFragment"
+        tools:layout="@layout/fragment_overview">
         <action
             android:id="@+id/action_overviewFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
@@ -25,5 +26,10 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.nerdeyesem.detail.DetailFragment"
-        android:label="DetailFragment" />
+        android:label="DetailFragment"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="selectedRestaurant"
+            app:argType="com.example.nerdeyesem.network.response.nearby_restaurants.NearbyRestaurant"/>
+    </fragment>
 </navigation>

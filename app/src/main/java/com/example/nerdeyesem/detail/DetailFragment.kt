@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.nerdeyesem.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment() {
@@ -15,6 +16,10 @@ class DetailFragment : Fragment() {
         val application = requireNotNull(activity).application
         val binding = FragmentDetailBinding.inflate(inflater)
         binding.lifecycleOwner = this
+        val nearbyRestaurant = DetailFragmentArgs.fromBundle(arguments!!).selectedRestaurant
+        val viewModelFactory = DetailViewModelFactory(nearbyRestaurant,application)
+
+        binding.viewModel = ViewModelProvider(this,viewModelFactory).get(DetailViewModel::class.java)
         return binding.root
     }
 }

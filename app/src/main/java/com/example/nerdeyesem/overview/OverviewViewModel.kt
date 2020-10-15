@@ -30,6 +30,10 @@ class OverviewViewModel : ViewModel() {
     val nearbyRestaurant : LiveData<List<NearbyRestaurant>>
         get() = _nearbyRestaurants
 
+    private val _navigateToSelectednearbyRestaurant = MutableLiveData<NearbyRestaurant>()
+    val navigateToSelectednearbyRestaurant : LiveData<NearbyRestaurant>
+        get() = _navigateToSelectednearbyRestaurant
+
     /**
      * Call getZomatoProperties() on init so we can display status immediately.
      */
@@ -62,5 +66,12 @@ class OverviewViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    fun displayRestaurantDetails (nearbyRestaurant: NearbyRestaurant){
+        _navigateToSelectednearbyRestaurant.value = nearbyRestaurant
+    }
+    fun displayRestaurantDetailsComplete(){
+        _navigateToSelectednearbyRestaurant.value = null
     }
 }
