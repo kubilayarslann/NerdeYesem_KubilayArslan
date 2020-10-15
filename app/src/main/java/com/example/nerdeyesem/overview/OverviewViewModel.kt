@@ -24,8 +24,8 @@ class OverviewViewModel : ViewModel() {
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
 
-    private val _nearbyRestaurants = MutableLiveData<NearbyRestaurant>()
-    val nearbyRestaurant : LiveData<NearbyRestaurant>
+    private val _nearbyRestaurants = MutableLiveData<List<NearbyRestaurant>>()
+    val nearbyRestaurant : LiveData<List<NearbyRestaurant>>
         get() = _nearbyRestaurants
 
     /**
@@ -45,7 +45,7 @@ class OverviewViewModel : ViewModel() {
             var getNearbyRestaurantsDeferred = ZomatoApi.retrofitService.getNearbyRestaurants("41.008921","28.973153")
             try {
                 var response = getNearbyRestaurantsDeferred.await()
-                _nearbyRestaurants.value =  response.nearby_restaurants[0]
+                _nearbyRestaurants.value =  response.nearby_restaurants
             }catch (t: Throwable){
                 _status.value = "Failure: " + t.message
             }
