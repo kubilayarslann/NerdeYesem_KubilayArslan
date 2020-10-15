@@ -10,13 +10,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
+enum class ZomatoAPIStatus { LOADING, ERROR, DONE}
+
 class OverviewViewModel : ViewModel() {
 
     // The internal MutableLiveData String that stores the status of the most recent request
-    private val _status = MutableLiveData<String>()
+    private val _status = MutableLiveData<ZomatoAPIStatus>()
 
     // The external immutable LiveData for the request status String
-    val status: LiveData<String>
+    val status: LiveData<ZomatoAPIStatus>
         get() = _status
 
     //Create a coroutine Job and a CoroutineScope using MainDispatcher
@@ -44,10 +46,13 @@ class OverviewViewModel : ViewModel() {
 
             var getNearbyRestaurantsDeferred = ZomatoApi.retrofitService.getNearbyRestaurants("41.008921","28.973153")
             try {
+                _status.value = ZomatoAPIStatus.LOADING
                 var response = getNearbyRestaurantsDeferred.await()
+                _status.value = ZomatoAPIStatus.DONE
                 _nearbyRestaurants.value =  response.nearby_restaurants
             }catch (t: Throwable){
-                _status.value = "Failure: " + t.message
+                _status.value = ZomatoAPIStatus.ERROR
+                _nearbyRestaurants.value = ArrayList()
             }
 
         }
