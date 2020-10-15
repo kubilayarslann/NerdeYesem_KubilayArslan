@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 data class Location (
 
     val address : String,
-    @Json(name = "locality")val localityName : String,
+    val locality : String,
     val city : String,
     val city_id : Int,
     val latitude : Double,

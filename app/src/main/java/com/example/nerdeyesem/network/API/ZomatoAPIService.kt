@@ -1,11 +1,10 @@
 package com.example.nerdeyesem.network.API
 
-import com.example.nerdeyesem.network.response.nearby_restaurants.geocodeResponse
+import com.example.nerdeyesem.network.response.nearby_restaurants.GeocodeResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -27,21 +26,12 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface ZomatoAPIService {
-//    @Headers(
-//        "Accept: application/json",
-//        "user-key: 5304865f97a15a81bf07630ec09f4d63")
-//    @GET("api/v2.1/search")
-//    fun getProperties():
-//            Call<String>
+
     @Headers("Accept: application/json", "user_key: 5304865f97a15a81bf07630ec09f4d63")
     @GET("geocode")
     fun getNearbyRestaurants(@Query("lat")queryParams1: String,
-                             @Query("lon")queryParams2: String):Deferred<geocodeResponse>
-//
-//    @Headers("Accept: application/json", "user_key: 327e75c31ca03dbb55cbabe4257acfa9")
-//    @GET("restaurant")
-//    fun getRestaurantDetail(@Query("res_id") queryParameter: String):Call<RestaurantDetail>
-//
+                             @Query("lon")queryParams2: String) : Deferred <GeocodeResponse>
+
 }
 
 object ZomatoApi {

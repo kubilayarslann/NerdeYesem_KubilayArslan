@@ -1,7 +1,6 @@
 package com.example.nerdeyesem.detail
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.nerdeyesem.network.ZomatoProperty
