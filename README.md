@@ -36,3 +36,6 @@ using the internet and gps connection .
 - Glide 
 - Coroutines
 - LiveData - DataBinding
+
+
+https://youtu.be/UXJ45EKfPyM
