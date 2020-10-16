@@ -33,7 +33,7 @@ class TitleFragment : Fragment() {
                     override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                         super.onAuthenticationError(errorCode, errString)
                         Toast.makeText(context,
-                                "Authentication error: $errString", Toast.LENGTH_SHORT)
+                                "Authentication error: $errString", Toast.LENGTH_LONG)
                                 .show()
                     }
 
@@ -41,14 +41,14 @@ class TitleFragment : Fragment() {
                             result: BiometricPrompt.AuthenticationResult) {
                         super.onAuthenticationSucceeded(result)
                         Toast.makeText(context,
-                                "Authentication succeeded!", Toast.LENGTH_SHORT)
+                                "Authentication succeeded!", Toast.LENGTH_LONG)
                                 .show()
                     }
 
                     override fun onAuthenticationFailed() {
                         super.onAuthenticationFailed()
                         Toast.makeText(context, "Authentication failed",
-                                Toast.LENGTH_SHORT)
+                                Toast.LENGTH_LONG)
                                 .show()
                     }
                 })
