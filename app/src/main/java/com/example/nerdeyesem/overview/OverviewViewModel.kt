@@ -14,6 +14,9 @@ enum class ZomatoAPIStatus { LOADING, ERROR, DONE}
 
 class OverviewViewModel : ViewModel() {
 
+    var longattitude : String = "28.973153"
+    var latitude : String = "41.008921"
+
     // The internal MutableLiveData String that stores the status of the most recent request
     private val _status = MutableLiveData<ZomatoAPIStatus>()
 
@@ -48,7 +51,7 @@ class OverviewViewModel : ViewModel() {
 
         coroutineScope.launch {
 
-            var getNearbyRestaurantsDeferred = ZomatoApi.retrofitService.getNearbyRestaurants("41.008921","28.973153")
+            var getNearbyRestaurantsDeferred = ZomatoApi.retrofitService.getNearbyRestaurants(longattitude,latitude)
             try {
                 _status.value = ZomatoAPIStatus.LOADING
                 var response = getNearbyRestaurantsDeferred.await()
