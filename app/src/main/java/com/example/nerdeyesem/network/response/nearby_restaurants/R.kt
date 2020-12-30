@@ -5,5 +5,5 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class R(
-    val  res_id : Integer
+    val  res_id : Int
 ):Parcelable

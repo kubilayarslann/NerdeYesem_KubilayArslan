@@ -14,8 +14,8 @@ enum class ZomatoAPIStatus { LOADING, ERROR, DONE}
 
 class OverviewViewModel : ViewModel() {
 
-    var longattitude : String = "41.008921"
-    var latitude : String = "28.973153"
+    var longattitude : String = "40.71463"
+    var latitude : String = "-74.005806"
 
     // The internal MutableLiveData String that stores the status of the most recent request
     private val _status = MutableLiveData<ZomatoAPIStatus>()

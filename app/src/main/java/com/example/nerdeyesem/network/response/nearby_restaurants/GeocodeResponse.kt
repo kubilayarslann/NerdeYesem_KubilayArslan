@@ -6,7 +6,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class GeocodeResponse(
-    @Json(name = "location") val locality :  Locality,
+    @Json(name = "location")
+    val locality :  Locality,
     val popularity : Popularity,
     val link : String,
     val nearby_restaurants : List<NearbyRestaurant>

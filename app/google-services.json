@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "662040448985",
+    "project_id": "nerdeyesem-ka",
+    "storage_bucket": "nerdeyesem-ka.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662040448985:android:3c09a9d48d5b62407a13c8",
+        "android_client_info": {
+          "package_name": "com.example.kubilayarslan.nerdeyesem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662040448985-3apa9s6th67ol864ba61a51ebr2n6tsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_pXmNyeE-t0piq87LhymkDlYKZ32yBCI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662040448985-3apa9s6th67ol864ba61a51ebr2n6tsd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

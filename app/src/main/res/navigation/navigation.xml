@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/titleFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/titleFragment"
@@ -31,5 +31,11 @@
         <argument
             android:name="selectedRestaurant"
             app:argType="com.example.nerdeyesem.network.response.nearby_restaurants.NearbyRestaurant"/>
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.nerdeyesem.com.example.nerdeyesem.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
     </fragment>
 </navigation>
