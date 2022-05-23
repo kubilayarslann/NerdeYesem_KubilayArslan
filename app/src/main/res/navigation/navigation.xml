@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/titleFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/titleFragment"
@@ -13,6 +13,11 @@
         <action
             android:id="@+id/action_titleFragment_to_overviewFragment"
             app:destination="@id/overviewFragment" />
+        <action
+            android:id="@+id/action_titleFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/titleFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/overviewFragment"
@@ -31,5 +36,16 @@
         <argument
             android:name="selectedRestaurant"
             app:argType="com.example.nerdeyesem.network.response.nearby_restaurants.NearbyRestaurant"/>
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.nerdeyesem.com.example.nerdeyesem.login.LoginFragment"
+        android:label="fragment_loginfirebaseui"
+        tools:layout="@layout/fragment_loginfirebaseui" >
+        <action
+            android:id="@+id/action_loginFragment_to_titleFragment"
+            app:destination="@id/titleFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

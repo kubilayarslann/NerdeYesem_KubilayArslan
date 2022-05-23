@@ -9,59 +9,38 @@ import android.widget.Toast
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.nerdeyesem.R
+import com.example.nerdeyesem.com.example.nerdeyesem.login.LoginViewModel
+import com.example.nerdeyesem.com.example.nerdeyesem.title.TitleViewModel
 import com.example.nerdeyesem.databinding.FragmentTitleBinding
+import com.example.nerdeyesem.detail.DetailFragmentArgs
 import java.util.concurrent.Executor
 
 
 class TitleFragment : Fragment() {
 
-    private lateinit var executor: Executor
-    private lateinit var biometricPrompt: BiometricPrompt
-    private lateinit var promptInfo: BiometricPrompt.PromptInfo
+    private val viewModel: TitleViewModel by lazy { ViewModelProvider(this).get(TitleViewModel::class.java) }
+
+
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
          //Inflate the layout for this fragment
         val binding : FragmentTitleBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_title, container, false)
+        binding.lifecycleOwner = this
+        binding.usernameText.text = viewModel.currentuser.value?.let {
+            it.displayName
+        }
 
-
-
-        executor = ContextCompat.getMainExecutor(context)
-        biometricPrompt = BiometricPrompt(this, executor,
-                object : BiometricPrompt.AuthenticationCallback() {
-                    override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                        super.onAuthenticationError(errorCode, errString)
-                        Toast.makeText(context,
-                                "Authentication error: $errString", Toast.LENGTH_LONG)
-                                .show()
-                    }
-
-                    override fun onAuthenticationSucceeded(
-                            result: BiometricPrompt.AuthenticationResult) {
-                        super.onAuthenticationSucceeded(result)
-                        Toast.makeText(context,
-                                "Authentication succeeded!", Toast.LENGTH_LONG)
-                                .show()
-                    }
-
-                    override fun onAuthenticationFailed() {
-                        super.onAuthenticationFailed()
-                        Toast.makeText(context, "Authentication failed",
-                                Toast.LENGTH_LONG)
-                                .show()
-                    }
-                })
-
-        promptInfo = BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Biometric login for my app")
-                .setSubtitle("Log in using your biometric credential")
-                .setNegativeButtonText("Use account password")
-                .build()
 
         binding.searchButton.setOnClickListener{
-            biometricPrompt.authenticate(promptInfo)
             findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToOverviewFragment())
+        }
+        binding.signoutButton.setOnClickListener{
+            viewModel.signOut()
+            findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToLoginFragment())
         }
         return binding.root
     }

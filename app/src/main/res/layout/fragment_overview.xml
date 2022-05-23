@@ -15,29 +15,30 @@
         android:layout_height="match_parent"
         tools:context="com.example.nerdeyesem.overview.OverviewFragment">
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/photos_grid"
+            android:id="@+id/restaurant_grid"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:padding="6dp"
+            android:padding="0dp"
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:spanCount="2"
+            app:spanCount="1"
             app:listData="@{viewModel.nearbyRestaurant}"
-            tools:listitem="@layout/grid_view_item" />
+            tools:listitem="@layout/grid_view_item"
+            android:background="@color/primaryColor"/>
 
         <ImageView
             android:id="@+id/status_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:marsApiStatus="@{viewModel.status}" />
+            app:zomatoAPIStatus="@{viewModel.status}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

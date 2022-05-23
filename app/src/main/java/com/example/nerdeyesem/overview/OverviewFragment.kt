@@ -1,14 +1,13 @@
 package com.example.nerdeyesem.overview
 
+import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context.LOCATION_SERVICE
+import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import androidx.annotation.NonNull
-import androidx.core.content.ContextCompat.getSystemService
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,36 +15,33 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.nerdeyesem.R
 import com.example.nerdeyesem.databinding.FragmentOverviewBinding
-import com.example.nerdeyesem.databinding.GridViewItemBinding
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.LocationSettingsRequest
 
 class OverviewFragment : Fragment() {
+
+    private val LOCATION_PERMISSION_REQ_CODE = 999;
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val viewModel: OverviewViewModel by lazy { ViewModelProvider(this).get(OverviewViewModel::class.java) }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
+        getCurrentLocation()
+    }
+
     @SuppressLint("MissingPermission")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        //Gettin last location
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
-        fusedLocationClient.lastLocation
-                .addOnSuccessListener { location : Location? ->
-                    viewModel.longattitude = location!!.longitude.toString()
-                    viewModel.latitude = location!!.latitude.toString()
-                }
-
 
         val binding = DataBindingUtil.inflate<FragmentOverviewBinding>(inflater, R.layout.fragment_overview, container, false)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
 
+
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
-        binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener{
+        binding.restaurantGrid.adapter = RestaurantGridAdapter(RestaurantGridAdapter.OnClickListener{
             viewModel.displayRestaurantDetails(it)
         })
 
@@ -59,6 +55,46 @@ class OverviewFragment : Fragment() {
         setHasOptionsMenu(true)
         return binding.root
 }
+
+    private fun getCurrentLocation() {
+        // checking location permission
+        if (ActivityCompat.checkSelfPermission(this.requireContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // request permission
+            ActivityCompat.requestPermissions(this.requireActivity(),
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQ_CODE);
+            return
+        }
+        fusedLocationClient.lastLocation?.let {
+            it
+                    .addOnSuccessListener { location ->
+                        viewModel.getZomatoProperties(location.longitude.toString(), location.latitude.toString())
+
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this.requireContext(), "Failed on getting current location",
+                                Toast.LENGTH_SHORT).show()
+                    }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+            requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
+        when (requestCode) {
+            LOCATION_PERMISSION_REQ_CODE -> {
+                if (grantResults.isNotEmpty() &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission granted
+                } else {
+                    // permission denied
+                    Toast.makeText(this.requireContext(), "You need to grant permission to access location",
+                            Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
 
 
 }

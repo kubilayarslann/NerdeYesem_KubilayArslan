@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.nerdeyesem.network.response.nearby_restaurants.NearbyRestaurant
-import com.example.nerdeyesem.overview.PhotoGridAdapter
+import com.example.nerdeyesem.overview.RestaurantGridAdapter
 import com.example.nerdeyesem.overview.ZomatoAPIStatus
 
-@BindingAdapter("marsApiStatus")
+@BindingAdapter("zomatoAPIStatus")
 fun bindStatus(statusImageView: ImageView, status: ZomatoAPIStatus?) {
     when (status) {
         ZomatoAPIStatus.LOADING -> {
@@ -30,7 +30,7 @@ fun bindStatus(statusImageView: ImageView, status: ZomatoAPIStatus?) {
 
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<NearbyRestaurant>?) {
-    val adapter = recyclerView.adapter as PhotoGridAdapter
+    val adapter = recyclerView.adapter as RestaurantGridAdapter
     adapter.submitList(data)
 }
 
